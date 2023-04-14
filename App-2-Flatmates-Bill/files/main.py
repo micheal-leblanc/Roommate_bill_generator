@@ -16,9 +16,14 @@ class Roommate:
         self.name = name
         self.days_in_house = days_in_house
 
-    def pays(self, bill):
-        return bill.amount / 2
+    def pays(self, bill, roommate2):
+        """Creates a coefficient based on amount of days stayed in the house and multiplies bill amount by weight"""
+        weight = self.days_in_house / (self.days_in_house + roommate2.days_in_house)
 
+        amount_to_pay = bill.amount * weight
+        # Rounds float to two decimal places and returns as string
+        return "{:.2f}".format(amount_to_pay) 
+    
 class PdfReport:
     """
     Creates a PDF file that contains data about the roommates such as their names, their amount due and the period of the bill
@@ -35,4 +40,6 @@ the_bill = Bill(amount = 120, period = "March 2021")
 john = Roommate(name = "John", days_in_house = 20)
 mary = Roommate(name = "Mary", days_in_house = 25)
 
-print(john.pays(bill = the_bill))
+print(f"John pays ${john.pays(bill=the_bill, roommate2=mary)}")
+print(f"Mary pays ${mary.pays(bill=the_bill, roommate2=john)}")
+print(f"Total bill is ${the_bill.amount} for {the_bill.period}")
