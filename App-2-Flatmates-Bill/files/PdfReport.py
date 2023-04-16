@@ -20,7 +20,7 @@ class PdfReport:
         pdf.add_page()
 
         # Add icon
-        pdf.image(name="directory\house.png", w=30, h=30,)
+        pdf.image(name="App-2-Flatmates-Bill/files/directory/house.png", w=30, h=30,)
 
         # Insert a title
         pdf.set_font(family='Times', size=24, style='B')
@@ -41,8 +41,8 @@ class PdfReport:
         pdf.cell(w=100, h=25, txt=roommate2.name, border=0, align='C')
         pdf.cell(w=150, h=25, txt=(f"${roommate2.pays(bill = bill, roommate2=roommate1)}"), border=0, align='C', ln=1)
 
-        # Change directory to "directory"
-        os.chdir("directory")
+        # Change filepath to "directory"
+        os.chdir("App-2-Flatmates-Bill/files/directory")
 
         # Generate PDF and insert in filepath
         pdf.output(f"{bill.period}.pdf")
