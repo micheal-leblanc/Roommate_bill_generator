@@ -45,7 +45,7 @@ class PdfReport:
         pdf.add_page()
 
         # Add icon
-        pdf.image(name="files\house.png", w=30, h=30,)
+        pdf.image(name="App-2-Flatmates-Bill/files/house.png", w=30, h=30,)
 
         # Insert a title
         pdf.set_font(family='Times', size=24, style='B')
@@ -73,8 +73,23 @@ class PdfReport:
         webbrowser.open(url=f"{bill.period}.pdf", new=2, autoraise=True)
 
 
-the_bill = Bill(amount = 120, period = "April 2023")
-john = Roommate(name = "John", days_in_house = 20)
-mary = Roommate(name = "Mary", days_in_house = 25)
-pdf_report = PdfReport(filename="Report.pdf")
-pdf_report.generate(roommate1=john, roommate2=mary, bill=the_bill)
+amount = float(input("What is the total amount of the bill? "))
+period = input("What is the billing period? I.E. April 2023: ")
+
+name1 = input("What is your name? ")
+days_in_house1 = int(input(f"How many days did {name1} stay in the house? "))
+
+name2 = input("What is the name of the first roommate? ")
+days_in_house2 = int(input(f"How many days did {name2} stay in the house? "))
+
+
+the_bill = Bill(amount, period)
+roommate1 = Roommate(name1, days_in_house1)
+roommate2 = Roommate(name2, days_in_house2)
+
+print(f"{roommate1.name} pays ${roommate1.pays(the_bill, roommate2)}")
+print(f"{roommate2.name} pays ${roommate2.pays(the_bill, roommate1)}")
+
+
+pdf_report = PdfReport(filename=f"{the_bill.period}.pdf")
+pdf_report.generate(roommate1, roommate2, the_bill)
